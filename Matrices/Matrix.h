@@ -13,7 +13,9 @@ public:
     void read();
     void print();
     Matrix multiply(Matrix otherMatrix);
+    Matrix multiply(double factor);
     Matrix subMatrix(int _i,int _j);
+    Matrix adjoint();
     Matrix transpose();
     double determinant();
     Matrix inverse();
