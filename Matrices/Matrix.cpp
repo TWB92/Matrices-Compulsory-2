@@ -134,7 +134,7 @@ Matrix Matrix::subMatrix(int _i, int _j) // Does not look pretty, but it works, 
         std::cout << "Arguments outside of range";
         return Matrix(m, n);
     }
-    // A submatrix with one row and one column remove
+    // A submatrix with one row and one column removed.
     Matrix sub(m-1,n-1);
     
     // Loop through all rows before the one which is removed.
@@ -145,15 +145,17 @@ Matrix Matrix::subMatrix(int _i, int _j) // Does not look pretty, but it works, 
         {
             sub.A[i][j] = A[i][j];
         }
-        
+        // Then goes through the columns after the one removed.
         for (int j = _j; j < n-1; ++j)
         {
             sub.A[i][j] = A[i][j+1];
         }
     }
     
+    // Then it goes through all the rows after it has been removed
     for (int i = _i; i < m-1; ++i)
     {
+        // Follows the same process again for each row, go through the columns before and after the removed column
         for (int j = 0; j < _j; ++j)
         {
             sub.A[i][j] = A[i+1][j];
