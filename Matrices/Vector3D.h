@@ -12,6 +12,8 @@ public:
     double dotProduct(Vector3D i);
     Vector3D crossProduct(Vector3D i);
     
+    void print();
+    
     Vector3D& operator+=(const Vector3D& rhs);
     Vector3D& operator-=(const Vector3D& rhs);
     friend Vector3D& operator+(const Vector3D& lhs, const Vector3D& rhs);

@@ -1,6 +1,7 @@
 #include "Vector3D.h"
 
 #include <cmath>
+#include <iostream>
 
 // Contains functionality which is not intended for Compulsory 2 tests, as I've made this class to be replicated and reused at a later time.
 
@@ -54,6 +55,12 @@ Vector3D Vector3D::crossProduct(Vector3D i)
         z*i.x - x*i.z,
         x*i.y - y*i.x
     };
+}
+
+void Vector3D::print()
+{
+    std::cout << "--- 3 Dimensional Vector ---\n";
+    std::cout << x << "\n" << y << "\n" << z << "\n";
 }
 
 // Me trying something new and learning operator overloading.
