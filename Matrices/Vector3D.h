@@ -14,8 +14,8 @@ public:
     
     Vector3D& operator+=(const Vector3D& rhs);
     Vector3D& operator-=(const Vector3D& rhs);
-    Vector3D& operator+(const Vector3D& lhs, const Vector3D& rhs);
-    Vector3D& operator-(const Vector3D& lhs, const Vector3D& rhs);
+    friend Vector3D& operator+(const Vector3D& lhs, const Vector3D& rhs);
+    friend Vector3D& operator-(const Vector3D& lhs, const Vector3D& rhs);
     
 private:
     double x;

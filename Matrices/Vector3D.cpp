@@ -77,14 +77,14 @@ Vector3D& Vector3D::operator-=(const Vector3D& rhs)
     return *this;
 }
 
-Vector3D& Vector3D::operator+(const Vector3D& lhs, const Vector3D& rhs)
+Vector3D& operator+(const Vector3D& lhs, const Vector3D& rhs)
 {
     // Definition of + operator, using +=.
     Vector3D lhs1(lhs);
     return lhs1 += rhs;
 }
 
-Vector3D& Vector3D::operator-(const Vector3D& lhs, const Vector3D& rhs)
+Vector3D& operator-(const Vector3D& lhs, const Vector3D& rhs)
 {
     // Definition of - operator, using -=.
     Vector3D lhs1(lhs);
