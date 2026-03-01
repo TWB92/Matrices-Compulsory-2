@@ -18,6 +18,19 @@ Matrix::Matrix()
 
 Matrix::Matrix(int _m, int _n) : m(_m), n(_n) // Shorthand for setting variables based on the parameters.
 {
+    // Create default matrix if _m or _n is too big or too small.
+    if (m > 10 || n > 10)
+    {
+        std::cout << "Inputs to big! Limit to max 10. Creating default matrix.\n";
+        m = M;
+        n = N;
+    }
+    if (m < 1 || n < 1)
+    {
+        std::cout << "Inputs to small! Matrices must have more rows or columns than 0. Creating default matrix.\n";
+        m = M;
+        n = N;
+    }
     for (int i = 0; i < _m; ++i)
     {
         for (int j = 0; j < _n; ++j)
@@ -97,6 +110,21 @@ Matrix Matrix::multiply(double factor)
     return newMatrix;
 }
 
+Vector3D Matrix::multiply(Vector3D v)
+{
+    // Simple multiplication of matrix and vector
+    if (m!=3 || m!=n)
+    {
+        std::cout << "Matrix cannot be multiplied with a 3 dimensional vector.\n";
+    }
+    // Converts each row to a vector and calculates the dot product of it and v.
+    return {
+        v.dotProduct(Vector3D(A[0][0], A[0][1], A[0][2])),
+        v.dotProduct(Vector3D(A[1][0], A[1][1], A[1][2])),
+        v.dotProduct(Vector3D(A[2][0], A[2][1], A[2][2]))
+    };
+}
+
 Matrix Matrix::subMatrix(int _i, int _j) // Does not look pretty, but it works, and I cannot see any other way this is done.
 {
     // Finds the submatrix or "Minor" of a matrix of any given entry. Does not allow creating submatrices outside the matrix's size.
@@ -155,15 +183,23 @@ Matrix Matrix::adjoint()
     {
         for (int j = 0; j < n; ++j)
         {
-            // The factor deciding whether the cofactor is the negative of the determinant of the submatrix or not.
-            double adjFactor = pow(-1, i+j);
-            
-            // Switching out "i" and "j" means we don't need to call the transpose function on the result.
-            adjointMatrix.A[i][j] = subMatrix(i,j).determinant() * adjFactor; 
+            adjointMatrix.A[i][j] = cofactor(i, j);
         }
     }
     
     return adjointMatrix.transpose();
+}
+
+double Matrix::cofactor(int _i, int _j)
+{
+    // The factor deciding whether the cofactor is the negative of the determinant of the submatrix or not.
+    //
+    // Is called "adjFactor" because this was originally in the adjoint function, but moved to its own 
+    // function which is called by adjoint() and determinant()
+    //
+    double adjFactor = pow(-1, _i + _j);
+    
+    return subMatrix(_i, _j).determinant() * adjFactor;
 }
 
 Matrix Matrix::transpose()
@@ -205,13 +241,20 @@ double Matrix::determinant()
     }
     
     // The determinant of a 3x3 function (and above) is found by adding every entry in the first row multiplied with its cofactor
-    if (m==3)
+    if (m>=3)
     {
-        return A[0][0]*subMatrix(0,0).determinant() - A[0][1]*subMatrix(0,1).determinant() + A[0][2]*subMatrix(0,2).determinant();
+        double val = 0;
+        for (int i = 0; i < m; ++i)
+        {
+            val += A[0][i]*cofactor(0,i); // Calling the cofactor function calls the determinant function again. 
+        }
+        return val;
     }
     
     // As I have so humbly searched on the internet, the cofactor for larger sizes of square matrices can be done recursively.
     // I will probably implement it, just writing here to remind myself.
+    //
+    // UPDATE: I have implemented it in what I believe is a pretty elegant fashion.
 
     std::cout << "Matrix too big! Function finds determinants for matrices up to 3x3.\n";
     return 0;

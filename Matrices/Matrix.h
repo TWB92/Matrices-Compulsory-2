@@ -14,12 +14,13 @@ public:
     void print();
     Matrix multiply(Matrix otherMatrix);
     Matrix multiply(double factor);
-    Matrix subMatrix(int _i,int _j);
+    Vector3D multiply(Vector3D v);
+    Matrix subMatrix(int _i, int _j);
     Matrix adjoint();
+    double cofactor(int _i, int _j);
     Matrix transpose();
     double determinant();
     Matrix inverse();
-    Vector3D multiply(Vector3D v);
 private:
     // -- Constants --
     static const int M = 10;
