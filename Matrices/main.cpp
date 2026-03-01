@@ -28,6 +28,13 @@ int main(int argc, char* argv[])
     matrix1.inverse().print();
     matrix2.inverse().print();
     
+    // Vector3D functionality.
     Vector3D newVector(3,5,-2);
+    newVector.print();
+    matrix1.multiply(newVector).print();
+    matrix2.multiply(newVector).print();
+    
+    Vector3D anotherVector(-4,-2,8);
+    newVector += anotherVector;
     newVector.print();
 }
